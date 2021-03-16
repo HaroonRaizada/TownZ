@@ -18,9 +18,9 @@ const PersonalRoute=({
 
 
 )=>{
-	console.log("wwwwwwwwwwww",loggedIn,Component)
+	console.log("inside log",loggedIn);
 	return (<Route {...rest} render={props=>
-	loggedIn==true?(<Component loggedIn={loggedIn} userName={userName} authorization={authorization} {...props}/>):
+	loggedIn?(<Component loggedIn={loggedIn} userName={userName} authorization={authorization} {...props}/>):
 	
 	
 	(<Redirect to={{pathname:"/login",

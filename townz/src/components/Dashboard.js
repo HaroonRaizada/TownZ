@@ -33,17 +33,13 @@ const useStyles=theme=>({
 	
 })
 
-class Dashboard extends Component{
+const Dashboard =(props)=>{
 	
-	constructor(props){
-		super(props);
-		this.state={permission:this.props.permission}
+	
+
 		
-	}
-	render(){
-		
-		const {classes}=this.props;
-		const {permission}=this.state;
+		const classes=props.classes;
+	
 		
 		return (
 		<div className={classes.root}>
@@ -57,5 +53,5 @@ class Dashboard extends Component{
 		
 	}
 	
-}
+
 export default withStyles(useStyles)(Dashboard);

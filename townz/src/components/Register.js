@@ -18,7 +18,9 @@ class Register extends Component {
 	   let body={
 "username":this.state.first_name,
 "email":this.state.email,
-"password":this.state.password
+"password":this.state.password,
+"roles":
+	[]
 		   
 	   }
 	  fetch("/users/signup", {

@@ -17,10 +17,7 @@ class App extends Component {
 	  loggedIn:localStorage.getItem("loggedIn")!=undefined?localStorage.getItem("loggedIn"):false
     }
   }
-  componentWillMount(){
-    var loginPage =[];
-   
-  }
+  
   loginSet=(authorization,loggedIn,userName,permission,email)=>{
 	  console.log("asms",loggedIn);
 	  this.setState({
@@ -74,7 +71,8 @@ class App extends Component {
 	   userName={this.state.userName}
 	   authorization={this.state.authorization}
 	   />
-        {this.state.uploadScreen}
+	    {this.state.uploadScreen}
+       
 		 </Switch>
 		  </HashRouter>
       </div>

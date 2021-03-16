@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Login from './Login';
 import Register from './Register';
-class Loginscreen extends PureComponent {
+import {Redirect} from "react-router-dom";
+class Loginscreen extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -11,43 +12,47 @@ class Loginscreen extends PureComponent {
       password:'',
       loginscreen:[],
       loginmessage:'',
-      buttonLabel:'Register',
+      buttonLabel:'Login',
       isLogin:true
     }
   }
   handleClick=()=>{
 	   var loginmessage;
-    if(this.props.loggedIn){
+    if(!this.state.isLogin){
       var loginscreen=[];
       loginscreen.push(<Register parentContext={this}/>);
-      loginmessage = "Already registered.Go to Login";
+      loginmessage = "Registered  User?Sign In";
       this.setState({
                      loginscreen:loginscreen,
                      loginmessage:loginmessage,
-                     buttonLabel:"Login",
-                     isLogin:false
+                     buttonLabel:"Sign In",
+                     isLogin:true
                    })
     }
     else{
       var loginscreen=[];
       loginscreen.push(<Login loginSet={this.props.loginSet} loggedIn={this.props.loggedIn} parentContext={this}/>);
-      loginmessage = "Not Registered yet.Go to registration";
+      loginmessage = "New User?Sign Up";
       this.setState({
                      loginscreen:loginscreen,
                      loginmessage:loginmessage,
-                     buttonLabel:"Register",
-                     isLogin:true
+                     buttonLabel:"Sign Up",
+                     isLogin:false
                    })
     }
 	  
 	  
   }
-  componentDidMount(){
-	  }
+  
   render() {
+	  console.log("loginscreen",this.props.loggedIn)
+	  if(this.props.loggedIn){
+		
+		return (<Redirect to="/"/>)
+	}else{
     return (
       <div className="loginscreen">
-        <Login loginSet={this.props.loginSet} loggedIn={this.props.loggedIn} parentContext={this}/>
+	  {this.state.isLogin?(<Register parentContext={this}/>):( <Login loginSet={this.props.loginSet} loggedIn={this.props.loggedIn} />)}
         <div>
           {this.state.loginmessage}
           <MuiThemeProvider>
@@ -58,6 +63,7 @@ class Loginscreen extends PureComponent {
         </div>
       </div>
     );
+	}
   }
 }
 const style = {

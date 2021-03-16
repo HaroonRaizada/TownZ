@@ -28,15 +28,15 @@ constructor(props){
 
 console.log(this.props)
 localStorage.setItem("loggedIn",true);
-this.props.parentContext.props.loginSet("abc123",true,"haroon789","","abcv.com");
+this.props.loginSet("abc123",true,"haroon789","","abcv.com");
    //do something awesome that makes the world a better place
 });
  }
 render() {
-	console.log(this.props.parentContext.props.loggedIn)
-	if(this.props.parentContext.props.loggedIn){
+	console.log(this.props.loggedIn)
+	if(this.props.loggedIn){
 		
-		return <Redirect to="/Dashboard"/>
+		return (<Redirect to="/"/>)
 	}else{
     return (
       <div>
