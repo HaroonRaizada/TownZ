@@ -45,7 +45,13 @@ const Dashboard =(props)=>{
 		<div className={classes.root}>
 		<Grid container justify="flex-start" spacing={3}>
 		<Grid item xs={3}>
-		<CardDetails menu ="Town Details" title="Town Details" onclick={()=>{window.location.href="#/"}}/>
+		<CardDetails menu ="Category1" title="Category1" onclick={()=>{window.location.href="#/"}}/>
+		</Grid>
+		<Grid item xs={3}>
+		<CardDetails menu ="Category2" title="Category2" onclick={()=>{window.location.href="#/"}}/>
+		</Grid>
+		<Grid item xs={3}>
+		<CardDetails menu ="Category3" title="Category3" onclick={()=>{window.location.href="#/"}}/>
 		</Grid>
 		</Grid>
 		</div>

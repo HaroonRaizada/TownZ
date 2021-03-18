@@ -10,15 +10,17 @@ constructor(props){
   this.state={
   username:'',
   password:'',
-  loggedIn:props.loggedIn
-  }
+  loggedIn:props.loggedIn,
+  authorization:localStorage.getItem("authorization")!=undefined?localStorage.getItem("authorization"):""
  }
+}
  handleClick=(e)=>{
 	 fetch("/users/signin?username="+this.state.username+"&password="+this.state.password, {
   method: "post",
   headers: {
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'authorization':this.state.authorization,
   }
 
   //make sure to serialize your JSON body
@@ -27,8 +29,10 @@ constructor(props){
 .then( (response) => { 
 
 console.log(this.props)
+let resp=response.json();
 localStorage.setItem("loggedIn",true);
-this.props.loginSet("abc123",true,"haroon789","","abcv.com");
+localStorage.setItem("authorization",resp.token);
+this.props.loginSet(resp.token,true,resp.username,"",resp.email);
    //do something awesome that makes the world a better place
 });
  }

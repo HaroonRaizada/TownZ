@@ -38,6 +38,9 @@ const GetIcon=props=>{
 	if (props.menu=="Town Details"){
 		
 		return (<ViewListIcon color="primary"/>);
+	}else{
+		return (<ViewListIcon color="primary"/>);
+
 	}
 	
 }

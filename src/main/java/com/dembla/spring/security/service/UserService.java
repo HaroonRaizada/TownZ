@@ -3,6 +3,7 @@ package com.dembla.spring.security.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dembla.spring.security.dto.UserResponseDto;
 import com.dembla.spring.security.exception.CustomException;
 import com.dembla.spring.security.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class UserService {
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private UserResponseDto userResponseDto;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -30,21 +33,25 @@ public class UserService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  public String signin(String username, String password) {
+  public UserResponseDto signin(String username, String password) {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      return jwtTokenProvider.createToken(username, userRepository.findByUserName(username).getRoles());
+      userResponseDto.setUsername(username);
+      userResponseDto.setToken(jwtTokenProvider.createToken(username, userRepository.findByUserName(username).getRoles()));
+      
+      return userResponseDto;
     } catch (AuthenticationException e) {
       throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
     }
   }
 
-  public String signup(User user) {
+  public UserResponseDto signup(User user) {
     if (!userRepository.existsByUserName(user.getUserName())) {
      try {
     	user.setPassword(passwordEncoder.encode(user.getPassword()));
       userRepository.save(user);
-      return jwtTokenProvider.createToken(user.getUserName(), user.getRoles());
+      userResponseDto.setToken(jwtTokenProvider.createToken(user.getUserName(), user.getRoles()));
+      return userResponseDto;
      }catch(Exception e) {
     	 throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
      }
